@@ -1,3 +1,5 @@
 {
-  "commands.vampire_mod.level_command_set": "Set %s level for %s from %s to %s"
+  "commands.vampire_mod.level_command.set": "Set %s level for %s from %s to %s",
+  "commands.vampire_mod.level_command.reset": "Reset %s level for %s",
+  "commands.vampire_mod.level_command.get": "%s level for %s is %s"
 }
