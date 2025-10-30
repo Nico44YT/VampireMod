@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "vampiremod",
+  "version": "${version}",
+  "name": "VampireMod",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/vampiremod/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "nazario.vampiremod.client.VampiremodClient"
+    ],
+    "main": [
+      "nazario.vampiremod.Vampiremod"
+    ],
+    "cardinal-components": [
+      "nazario.vampiremod.Vampiremod"
+    ]
+  },
+  "mixins": [
+    "vampiremod.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "cardinal-components": [
+      "vampire_mod:vampire_data"
+    ]
+  }
+}
