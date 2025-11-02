@@ -1,0 +1,17 @@
+{
+  "replace": "false",
+  "values": [
+    "minecraft:snow_golem",
+    "minecraft:iron_golem",
+
+    "minecraft:skeleton",
+    "minecraft:skeleton_horse",
+    "minecraft:stray",
+    "minecraft:wither_skeleton",
+    "minecraft:wither",
+
+    "minecraft:allay",
+    "minecraft:vex",
+    "minecraft:armor_stand"
+  ]
+}

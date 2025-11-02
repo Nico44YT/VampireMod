@@ -1,6 +1,7 @@
 package nazario.vampiremod.network.packets;
 
 import nazario.vampiremod.Vampiremod;
+import nazario.vampiremod.tag.ModTags;
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
@@ -39,12 +40,18 @@ public record PlayerBitePacketC2S(int entityId) implements FabricPacket, ServerP
         World world = serverPlayerEntity.getWorld();
         Entity bittenEntity = world.getEntityById(packet.entityId());
 
-        if(bittenEntity instanceof LivingEntity livingEntity && livingEntity.isInRange(serverPlayerEntity, 1.5) && serverPlayerEntity.getHungerManager().isNotFull()) {
+        if(bittenEntity instanceof LivingEntity livingEntity && livingEntity.isInRange(serverPlayerEntity, 2) && serverPlayerEntity.getHungerManager().isNotFull()) {
+            if(livingEntity.getType().isIn(ModTags.Entity.NO_BLOOD_TAG)) return;
+            if(livingEntity.getType().isIn(ModTags.Entity.BAD_BLOOD_TAG)) {
+                livingEntity.damage(world.getDamageSources().magic(), 1);
+                serverPlayerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 40, 0, false, false));
+                return;
+            }
+
             livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 20, 1, false, false));
             livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 20, 255, false, false));
             livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, 20, 255, false, false));
             livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 20, 0, false, false));
-
 
             livingEntity.damage(world.getDamageSources().magic(), 1);
             serverPlayerEntity.getHungerManager().add(1, 0);
