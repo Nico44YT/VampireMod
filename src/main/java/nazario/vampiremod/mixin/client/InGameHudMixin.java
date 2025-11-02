@@ -2,8 +2,12 @@ package nazario.vampiremod.mixin.client;
 
 import nazario.vampiremod.Vampiremod;
 import nazario.vampiremod.cardinal.VampireDataComponent;
+import nazario.vampiremod.tag.ModTags;
+import nazario.vampiremod.util.ModVampireUtil;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -26,6 +30,7 @@ public abstract class InGameHudMixin {
     @Unique private boolean vampire$shouldRender = false;
 
     @Unique private final Identifier vampire$BLOOD_BAR_TEXTURE = Vampiremod.id("textures/gui/blood_bar.png");
+    @Unique private final Identifier vampire$BITE_INDICATOR = Vampiremod.id("textures/gui/bite_indicator.png");
 
     @Redirect(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;swap(Ljava/lang/String;)V"))
     public void vampire$swap(Profiler instance, String string) {
@@ -60,5 +65,15 @@ public abstract class InGameHudMixin {
     @ModifyConstant(method = "renderStatusBars", constant = @Constant(intValue = 10))
     private int modifyLoopBound(int original) {
         return vampire$shouldRender ? 0 : original;
+    }
+
+    @Redirect(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
+    public void vampire$drawTexture(DrawContext instance, Identifier texture, int x, int y, int u, int v, int width, int height) {
+        if(this.vampire$isVampire && MinecraftClient.getInstance().targetedEntity instanceof LivingEntity livingEntity && ModVampireUtil.canSuck(this.getCameraPlayer(), livingEntity)) {
+            instance.drawTexture(vampire$BITE_INDICATOR, x, y, 0, 0, 16, 16, 16, 16);
+            return;
+        }
+
+        instance.drawTexture(texture, x, y, u, v, width, height);
     }
 }

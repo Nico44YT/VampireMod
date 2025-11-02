@@ -2,6 +2,7 @@ package nazario.vampiremod.network.packets;
 
 import nazario.vampiremod.Vampiremod;
 import nazario.vampiremod.tag.ModTags;
+import nazario.vampiremod.util.ModVampireUtil;
 import net.fabricmc.fabric.api.networking.v1.FabricPacket;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PacketType;
@@ -40,8 +41,8 @@ public record PlayerBitePacketC2S(int entityId) implements FabricPacket, ServerP
         Entity bittenEntity = world.getEntityById(packet.entityId());
 
         if(bittenEntity instanceof LivingEntity livingEntity && livingEntity.isInRange(serverPlayerEntity, 2) && serverPlayerEntity.getHungerManager().isNotFull()) {
-            if(livingEntity.getType().isIn(ModTags.Entities.NO_BLOOD_TAG)) return;
-            if(livingEntity.getType().isIn(ModTags.Entities.BAD_BLOOD_TAG)) {
+            if(!ModVampireUtil.canSuck(serverPlayerEntity, livingEntity)) return;
+            if(ModVampireUtil.hasBadBlood(livingEntity)) {
                 livingEntity.damage(world.getDamageSources().magic(), 1);
                 serverPlayerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 40, 0, false, false));
                 return;
