@@ -8,7 +8,6 @@ import nazario.vampiremod.VampireClass;
 import nazario.vampiremod.ModConstants;
 import nazario.vampiremod.cardinal.VampireDataComponent;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,7 +17,7 @@ import java.util.Collection;
 
 public class VampireLevelCommand {
     public static ArgumentBuilder<ServerCommandSource, ?> create() {
-        return CommandManager.literal("level")
+        return CommandManager.literal("level").requires(player -> player.hasPermissionLevel(3))
                 .then(CommandManager.literal("get")
                         .then(CommandManager.argument("player", EntityArgumentType.players())
                                 .then(CommandManager.argument("class", new ClassArgumentType())

@@ -6,6 +6,7 @@ import nazario.vampiremod.cardinal.VampireDataComponent;
 import nazario.vampiremod.commands.ClassArgumentType;
 import nazario.vampiremod.commands.ModCommands;
 import nazario.vampiremod.commands.VampireLevelCommand;
+import nazario.vampiremod.network.ModPackets;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.ArgumentTypeRegistry;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -19,10 +20,13 @@ public class Vampiremod implements ModInitializer, EntityComponentInitializer {
 
     @Override
     public void onInitialize() {
-        CommandRegistrationCallback.EVENT.register(ModCommands::new);
-
         ModCommands.registerSubCommand(VampireLevelCommand.create());
         ArgumentTypeRegistry.registerArgumentType(id("class_argument"), ClassArgumentType.class, ConstantArgumentSerializer.of(ClassArgumentType::new));
+
+        CommandRegistrationCallback.EVENT.register(ModCommands::new);
+
+        ModPackets.registerC2S();
+        ModPackets.registerS2C();
     }
 
     public static Identifier id(String name) {
