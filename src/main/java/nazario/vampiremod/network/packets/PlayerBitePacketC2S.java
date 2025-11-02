@@ -11,7 +11,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.listener.ServerPacketListener;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -41,8 +40,8 @@ public record PlayerBitePacketC2S(int entityId) implements FabricPacket, ServerP
         Entity bittenEntity = world.getEntityById(packet.entityId());
 
         if(bittenEntity instanceof LivingEntity livingEntity && livingEntity.isInRange(serverPlayerEntity, 2) && serverPlayerEntity.getHungerManager().isNotFull()) {
-            if(livingEntity.getType().isIn(ModTags.Entity.NO_BLOOD_TAG)) return;
-            if(livingEntity.getType().isIn(ModTags.Entity.BAD_BLOOD_TAG)) {
+            if(livingEntity.getType().isIn(ModTags.Entities.NO_BLOOD_TAG)) return;
+            if(livingEntity.getType().isIn(ModTags.Entities.BAD_BLOOD_TAG)) {
                 livingEntity.damage(world.getDamageSources().magic(), 1);
                 serverPlayerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 40, 0, false, false));
                 return;

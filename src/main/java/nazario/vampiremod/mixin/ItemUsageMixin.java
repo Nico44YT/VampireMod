@@ -2,6 +2,7 @@ package nazario.vampiremod.mixin;
 
 import nazario.vampiremod.Vampiremod;
 import nazario.vampiremod.cardinal.VampireDataComponent;
+import nazario.vampiremod.tag.ModTags;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
@@ -20,6 +21,6 @@ public abstract class ItemUsageMixin {
     private static void vampire$consumeHeldItem(World world, PlayerEntity player, Hand hand, CallbackInfoReturnable<TypedActionResult<ItemStack>> cir) {
         ItemStack stack = player.getStackInHand(hand);
 
-        if(VampireDataComponent.isVampire(player) && stack.isFood()) cir.setReturnValue(TypedActionResult.pass(player.getStackInHand(hand)));
+        if(VampireDataComponent.isVampire(player) && stack.isFood() && !stack.getItem().getRegistryEntry().isIn(ModTags.Items.VAMPIRE_EDIBLE)) cir.setReturnValue(TypedActionResult.pass(player.getStackInHand(hand)));
     }
 }

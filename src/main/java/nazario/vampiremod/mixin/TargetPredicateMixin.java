@@ -21,8 +21,8 @@ public abstract class TargetPredicateMixin {
 
             EntityType<?> attackerType = baseEntity.getType();
 
-            if(attackerType.isIn(ModTags.Entity.VAMPIRE_HOSTILE_TAG)) cir.setReturnValue(true);
-            else if(attackerType.isIn(ModTags.Entity.VAMPIRE_PASSIVE_TAG) || attackerType.isIn(ModTags.Entity.VAMPIRE_NEUTRAL_TAG)) cir.setReturnValue(false);
+            if(attackerType.isIn(ModTags.Entities.VAMPIRE_HOSTILE_TAG)) cir.setReturnValue(true);
+            else if(attackerType.isIn(ModTags.Entities.VAMPIRE_PASSIVE_TAG) || attackerType.isIn(ModTags.Entities.VAMPIRE_NEUTRAL_TAG)) cir.setReturnValue(false);
         }
     }
 }
