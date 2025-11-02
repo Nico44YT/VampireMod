@@ -4,7 +4,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import nazario.vampiremod.VampireClass;
+import nazario.vampiremod.util.VampireClass;
 import nazario.vampiremod.ModConstants;
 import nazario.vampiremod.cardinal.VampireDataComponent;
 import net.minecraft.command.argument.EntityArgumentType;

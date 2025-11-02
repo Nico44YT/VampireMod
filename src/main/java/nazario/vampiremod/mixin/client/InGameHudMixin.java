@@ -2,8 +2,7 @@ package nazario.vampiremod.mixin.client;
 
 import nazario.vampiremod.Vampiremod;
 import nazario.vampiremod.cardinal.VampireDataComponent;
-import nazario.vampiremod.tag.ModTags;
-import nazario.vampiremod.util.ModVampireUtil;
+import nazario.vampiremod.util.VampireUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -69,7 +68,7 @@ public abstract class InGameHudMixin {
 
     @Redirect(method = "renderCrosshair", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"))
     public void vampire$drawTexture(DrawContext instance, Identifier texture, int x, int y, int u, int v, int width, int height) {
-        if(this.vampire$isVampire && MinecraftClient.getInstance().targetedEntity instanceof LivingEntity livingEntity && ModVampireUtil.canSuck(this.getCameraPlayer(), livingEntity)) {
+        if(this.vampire$isVampire && MinecraftClient.getInstance().targetedEntity instanceof LivingEntity livingEntity && VampireUtil.canSuck(this.getCameraPlayer(), livingEntity)) {
             instance.drawTexture(vampire$BITE_INDICATOR, x, y, 0, 0, 16, 16, 16, 16);
             return;
         }

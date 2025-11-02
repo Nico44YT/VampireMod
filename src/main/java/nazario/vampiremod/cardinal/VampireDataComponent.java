@@ -3,7 +3,7 @@ package nazario.vampiremod.cardinal;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import dev.onyxstudios.cca.api.v3.component.ComponentRegistry;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
-import nazario.vampiremod.VampireClass;
+import nazario.vampiremod.util.VampireClass;
 import nazario.vampiremod.Vampiremod;
 import nazario.vampiremod.util.ModNbtHelper;
 import net.minecraft.entity.player.PlayerEntity;

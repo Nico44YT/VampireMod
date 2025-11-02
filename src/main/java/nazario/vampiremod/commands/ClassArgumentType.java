@@ -2,7 +2,7 @@ package nazario.vampiremod.commands;
 
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.serialization.Codec;
-import nazario.vampiremod.VampireClass;
+import nazario.vampiremod.util.VampireClass;
 import net.minecraft.command.argument.EnumArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 

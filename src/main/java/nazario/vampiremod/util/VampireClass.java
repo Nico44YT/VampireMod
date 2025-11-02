@@ -1,4 +1,4 @@
-package nazario.vampiremod;
+package nazario.vampiremod.util;
 
 import net.minecraft.util.StringIdentifiable;
 
